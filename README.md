@@ -1,2 +1,2 @@
 # Security Operations (SOC) 101 Challenges
-This is the challenge repository for the SOC 101 curriculum.
+This is the ticket portal repository for the SOC Level 1 Live training.
