@@ -27,7 +27,7 @@ const Challenge = ({ data }) => {
 
             <div className="header">
                 <div className="header_breadcrumb">
-                    <div className="header_breadcrumb_item">SOC Level 1 Tickets</div>
+                    <Link to={`/`} className="header_breadcrumb_item">SOC Level 1 Tickets</Link>
                     <Link to={`/${data.uid}`} className="header_breadcrumb_item">{data.uid}</Link>
                 </div>
             </div>

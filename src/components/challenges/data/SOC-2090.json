@@ -1,8 +1,8 @@
 {
-    "uid": "SOC-24019",
-    "subject": "[EXTERNAL] Test Report",
-    "reporter": "Aaron Smyth",
-    "instructions": "<p>You are a SOC Analyst at <i>Global Logistics</i>. Emily Nguyen, a member of the marketing team, recently had trouble signing into her Dropbox account after trying to access it for the first time in months and reached out to her manager for assistance. The next day, she received an email that claims a password change request was made for her Dropbox account. The email includes a link for resetting her password, but Emily is unsure if the request is legitimate. Concerned about potential phishing, she has forwarded the email to the security team for analysis.</p><p>Using what you've learned within this domain, perform a detailed email analysis on the <code>challenge2.eml</code> file to answer the report questions below.</p><h3>Challenge File:</h3><p><ul><li><code>01_Phishing_Analysis/Challenges/challenge2.eml</code></li></ul></p>",
+    "uid": "SOC-2090",
+    "subject": "[Phish Report] Document Request - Review Org Chart",
+    "reporter": "Alex Johnson",
+    "instructions": "<p>You are a SOC Analyst at <i>Global Logistics</i>. Emily Nguyen, a member of the marketing team, recently had trouble signing into her Dropbox account after trying to access it for the first time in months and reached out to her manager for assistance. The next day, she received an email that claims a password change request was made for her Dropbox account. The email includes a link for resetting her password, but Emily is unsure if the request is legitimate. Concerned about potential phishing, she has forwarded the email to the security team for analysis.</p><p>Using what you've learned within this domain, perform a detailed email analysis on the <code>challenge2.eml</code> file to answer the report questions below.</p><h3>Challenge File:</h3><p><ul><li><code>~/Desktop/SOC_Level_1/Phishing_Analysis/Challenge/challenge.eml</code></li></ul></p>",
   
   
     "questions": [
@@ -77,22 +77,6 @@
           "hint": "Perform a reverse DNS lookup on the previously identified IP address.",
           "placeholder": "Enter your answer here",
           "correct_answers": ["AS16509", "16509"]  
-      },
-      {
-          "quid": "fb90b31a",
-          "question": "What was the result of the SPF check?",
-          "type": "text_input",
-          "hint": "Check the <b>Received-SPF</b> or the <b>Authentication-Results</b> header.",
-          "placeholder": "Enter your answer here",
-          "correct_answers": ["pass"]  
-      },
-      {
-          "quid": "6dbb53fe",
-          "question": "What is the full SPF record of the sender's domain?",
-          "type": "text_input",
-          "hint": "Run <code>nslookup -type=txt</code> against the domain previously identified in the <b>Return-Path</b>.",
-          "placeholder": "*=**** *******:*********.*** ~***",
-          "correct_answers": ["v=spf1 include:amazonses.com ~all"]  
       },
         {
             "quid": "1008fa0c",

@@ -1,7 +1,9 @@
 const challengedb = [
     {
-      id: "SOC-24019",
-      data: require('./SOC-24019.json'),
+      id: "SOC-2090",
+      title: "Document Request - Review Org Chart",
+      category: "Phishing Analysis",
+      data: require('./SOC-2090.json'),
     },
   ];
 
