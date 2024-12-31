@@ -2,7 +2,7 @@
   "name": "SL1_Challenges",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://challenges.malwarecube.com",
+  "homepage": "https://soc1.malwarecube.com",
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.1",
