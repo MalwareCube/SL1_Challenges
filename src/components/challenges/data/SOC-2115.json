@@ -1,0 +1,114 @@
+{
+    "uid": "SOC-2120",
+    "subject": "[REPORT] I think I Downloaded Something Evil...",
+    "reporter": "Arnold Swanson",
+    "instructions": "<p>An accountant in your organization reported that after attempting to download a productivity app on their workstation, their system began exhibiting unusual behavior, and they noticed a black console window briefly appearing throughout the day.</p> <p>You have been assigned to investigate the extracted event logs from the compromised endpoint to determine the actions taken during the incident and to identify any indicators or artifacts associated with the compromise. You have access to both the <code>Sysmon</code> and <code>Security</code> event logs, which were recorded around the time of the incident.</p><h3>Challenge Files:</h3><p><ul><li><code>C:\\Users\\tcm\\Desktop\\SOC_Level_1\\Endpoint_Security\\Windows\\Challenge\\security.evtx</code></li><li><code>C:\\Users\\tcm\\Desktop\\SOC_Level_1\\Endpoint_Security\\Windows\\Challenge\\sysmon.evtx</code></li></ul></p>",
+  
+  
+    "questions": [
+        {
+            "quid": "21b3f982",
+            "question": "What is the <b>hostname</b> of the computer that generated the logs files?",
+            "type": "text_input",
+            "hint": "If you're using the Event Viewer, look for the <b>Computer</b> field.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["DESKTOP-31LY78"]
+        },
+        {
+            "quid": "89b72cd6",
+            "question": "Based on the Sysmon <b>Process Create</b> logs, what is the name of the user account that was browsing the web using <b>Microsoft Edge</b>?",
+            "type": "text_input",
+            "hint": "Within the Sysmon events, you can check the <b>User</b> field, which indicates the user whose context the <code>msedge.exe</code> process was running under.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["darren.peterson", "darren peterson"]
+        },
+        {
+            "quid": "c487529a",
+            "question": "Look for events that may relate to files that were <b>downloaded</b> onto the system. What is the <b>filename</b> of the suspicious executable?",
+            "type": "text_input",
+            "hint": "Within the Sysmon events, you can check <b>Event Code 15</b>, which is logged when a named file stream is created. Make sure you identify the <i>primary</i> file stream (containing the main content of the file) rather than an Alternate Data Stream (ADS).",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["FortniteSkins_freecrack.exe", "C:\\Users\\darren.peterson\\Downloads\\FortniteSkins_freecrack.exe"]
+        },
+        {
+            "quid": "0b50d1f0",
+            "question": "What is the <b>SHA-256</b> hash value of the executable?",
+            "type": "text_input",
+            "hint": "Within the Sysmon events, you can check <b>Event Code 15</b>, which is logged when a named file stream is created. Make sure you identify the <i>primary</i> file stream (containing the main content of the file) rather than an Alternate Data Stream (ADS).",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["C3A661ECEA43BEF1318F594877ED73CC47DF2DB7F7838D7475F278CEBB9A9BD5"]
+        },
+        {
+            "quid": "d0969f42",
+            "question": "What is the <b>popular threat label</b>?",
+            "type": "text_input",
+            "hint": "Look for a similar event to the one you identified in the previous question. This time, look for the creation of a <b>Zone.Identifier</b> data stream, which stores metadata about the file's origin.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["trojan.metasploit/rozena", "rozena", "metasploit", "trojan.metasploit.a"]
+        },
+        {
+            "quid": "56504582",
+            "question": "In <b>defanged format</b>, what is the <b>full URL</b> that was hosting the executable?",
+            "type": "text_input",
+            "hint": "Look for a similar event to the one you identified in the previous question. This time, look for the creation of a <b>Zone.Identifier</b> data stream, which stores metadata about the file's origin.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["hxxps[://]cdn[.]discordapp[.]com/attachments/1325989374730698777/1325992684992860160/FortniteSkins_freecrack[.]exe?ex=677dce6b&is=677c7ceb&hm=8104be9496bd3f76ae088150b047c9372e788106920630fbfc918cadc1712fa0&", "https://cdn.discordapp.com/attachments/1325989374730698777/1325992684992860160/FortniteSkins_freecrack.exe", "hxxps[://]cdn[.]discordapp[.]com/attachments/1325989374730698777/1325992684992860160/FortniteSkins_freecrack[.]exe", "https://cdn.discordapp.com/attachments/1325989374730698777/1325992684992860160/FortniteSkins_freecrack.exe?ex=677dce6b&is=677c7ceb&hm=8104be9496bd3f76ae088150b047c9372e788106920630fbfc918cadc1712fa0&"]
+        },
+        {
+            "quid": "910da11c",
+            "question": "Filter for <b>process create</b> events related to the executable. What is the <b>Process ID (PID)</b> of the malware's first execution?",
+            "type": "text_input",
+            "hint": "Process Create events in Sysmon have the Event ID of <b>1</b>.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["3480"]
+        },
+        {
+            "quid": "e1e48bd6",
+            "question": "Based on the previously identified <b>Process ID (PID)</b>, find any subsequent <b>network connection</b> events. What is the <b>IP address and port number</b> that the malware connected back to? <i>Answer format: IP:Port</i>.",
+            "type": "text_input",
+            "hint": "Network Connection events in Sysmon have the Event ID of <b>3</b>. You can also use the <b>Find...</b> feature within Event Viewer.",
+            "placeholder": "*.***.**.***:*****",
+            "correct_answers": ["3.138.45.170:16166"]
+        },
+        {
+            "quid": "344bd09c",
+            "question": "The malware then spawned a child <code>cmd.exe</code> process to give the attacker remote access onto the system. What is the <b>Process ID (PID)</b> of this <code>cmd.exe</code> process?",
+            "type": "text_input",
+            "hint": "Process Create events in Sysmon have the Event ID of <b>1</b>.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["5392"]
+        },
+        {
+            "quid": "8ae37e35",
+            "question": "Use the <b>Security</b> event log to identify any <b>user account created</b> events. What is the name of the likely backdoor account that the attacker created?",
+            "type": "text_input",
+            "hint": "User account creation events have the Event ID of <b>4720</b>. Look for the <b>Account Name</b> field under the <b>New Account</b> section.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["iagservice"]
+        },
+        {
+            "quid": "556a2d78",
+            "question": "After establishing a foothold on the system, the attacker focused on credential access. In <b>defanged format</b>, what is the <b>full URL</b> of the domain account abuse tool that the attacker downloaded onto the system?",
+            "type": "text_input",
+            "hint": "Back in the <b>Sysmon</b> logs, look for any <b>FileCreate (ID 11)</b> events for any interesting files being created by the attacker. From here, trace back the <b>Process ID (PID)</b> to the original process.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["hxxps[://]github[.]com/lw8192/WindowsBinaries/raw/refs/heads/master/Rubeus[.]exe", "https://github.com/lw8192/WindowsBinaries/raw/refs/heads/master/Rubeus.exe"]
+        },
+        {
+            "quid": "5234be54",
+            "question": "What native <b>command-line tool</b> did the attacker use to establish <b>persistence</b> on the compromised system?",
+            "type": "text_input",
+            "hint": "You can use the <b>Find...</b> feature within Event Viewer to enumerate any child processes with the <b>Parent Process ID (PID)</b> of the <code>cmd.exe</code> process identified earlier. Use the keyword <b>\"ParentProcessId: 5392\"</b>.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["schtasks.exe", "schtasks", "task scheduler", "windows task scheduler", ": C:\\Windows\\System32\\schtasks.exe"]
+        },
+        {
+            "quid": "2152ane3",
+            "question": "What is the <b>IP address and port number</b> that the implanted persistence mechanism connects back to to download and execute? <i>Answer format: IP:Port</i>.",
+            "type": "text_input",
+            "hint": "You can use the <b>Find...</b> feature within Event Viewer to enumerate any child processes with the <b>Parent Process ID (PID)</b> of the <code>cmd.exe</code> process identified earlier. Use the keyword <b>\"ParentProcessId: 5392\"</b>.",
+            "placeholder": "***.***.*.***:****",
+            "correct_answers": ["192.169.6.122:6770"]
+        }
+    ]
+  }

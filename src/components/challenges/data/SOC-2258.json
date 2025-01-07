@@ -1,0 +1,18 @@
+{
+    "uid": "SOC-2258",
+    "subject": "TBD",
+    "reporter": "TBD",
+    "instructions": "<p>TBD.</p><p>TBD.</p><h3>Challenge Location:</h3><p><ul><li><code>http://tbd.com</code></li></ul></p>",
+  
+  
+    "questions": [
+        {
+            "quid": "aad31fbd",
+            "question": "How many total events were logged in the file?",
+            "type": "text_input",
+            "hint": "The <code>wc</code> command can be useful here.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["338", "338 events", "338 total events"]  
+        }
+    ]
+  }

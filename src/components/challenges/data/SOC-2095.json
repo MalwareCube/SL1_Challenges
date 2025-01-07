@@ -1,0 +1,117 @@
+{
+    "uid": "SOC-2095",
+    "subject": "HTTP Brute Force Attempt Detected",
+    "reporter": "Network IDS Forwarder (Workflow)",
+    "instructions": "<p>The SOC received an IDS alert indicating unusual traffic patterns and an unusually high volume of repeated requests directed at their externally facing file server (<code>40.102.21.20</code>). Suspecting a potential brute force attack, the team proceeded to capture network traffic from the server for further analysis.</p><p>Using your newfound Wireshark skills, perform network traffic analysis on the <code>challenge.pcap</code> packet capture to produce findings for the report questions below.</p><h3>Challenge File:</h3><p><ul><li><code>~/Desktop/SOC_Level_1/Network_Traffic_Analysis/Challenge/challenge.pcap</code></li></ul></p>",
+  
+  
+    "questions": [
+        {
+            "quid": "11c348fd",
+            "question": "How many <b>total packets</b> are in the <code>challenge.pcap</code> packet capture?",
+            "hint": "The <b>Statistics > Capture File Properties</b> section is your friend!",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["780", "780 packets"]  
+        },
+        {
+            "quid": "a6b2ce1a",
+            "question": "How much <b>time elapsed</b> between the first and last packet in the capture?",
+            "hint": "The <b>Statistics > Capture File Properties</b> section is your friend!",
+            "type": "text_input",
+            "placeholder": "**:**:**",
+            "correct_answers": ["00:29:49", "29:49", "29 minutes", "29 minutes 49 seconds"]  
+        },
+        {
+            "quid": "b68bb2f0",
+            "question": "Under the Transmission Control Protocol (TCP), <b>which protocol</b> makes up <b>11%</b> of the packet capture?",
+            "hint": "The <b>Statistics > Protocol Hierarchy</b> section can break down the top protocols by percentage and packet count.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["HTTP", "Hypertext Transfer Protocol"]  
+        },
+        {
+            "quid": "2ca96246",
+            "question": "Create a display filter for this protocol. What is the <b>HTTP Status Code</b> that returns for failed login attempts on the webpage?",
+            "hint": "Set the display filter to <b>http</b> and look at the response headers for denied GET requets to the webpage.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["401", "401 Unauthorized", "Unauthorized"]
+        },
+        {
+            "quid": "e76792a7",
+            "question": "What is the attacker's <b>IP address location</b>?",
+            "type": "text_input",
+            "hint": "After identifying the attacker's IP address, you can perform an IP address lookup using a number of tools.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["Russia", "Russian Federation Moskva", "russian federation", "Moscow"]  
+        },
+        {
+            "quid": "459023e7",
+            "question": "Based on the <b>User Agent</b> in the requests, which <b>tool</b> did the attacker use to <b>brute-force</b> the webpage?",
+            "hint": "By following the <b>HTTP stream</b> of one of the requests, you'll be able to find the <b>User-Agent</b> field in the request headers. You can search that user agent string on Google to narrow down the tool.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["Hydra", "thc-hydra"]
+        },
+        {
+            "quid": "34594ede",
+            "question": "What is the <b>packet number</b> associated with the successful brute force attempt?",
+            "hint": "You should have already identified the HTTP status code for failed login attempts. Filter that field to only pull back successful HTTP packets (status code 200). After identifying this <i>response packet</i>, open up the stream to highlight the original <b>request</b>.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["373"]
+        },
+        {
+            "quid": "2223017a",
+            "question": "The credentials attempted for each brute force attempt are located in the <b>Authorization</b> header of each request and encoded in <b>base-64</b>. What is the <b>user</b> and <b>password</b> combination that the attacker successfully used?",
+            "hint": "By following the <b>HTTP stream</b> from the previous question, look for the <b>Authorization</b> field in the request headers. This is a <b>base-64</b> encoded string that can easily be decoded with <b>CyberChef</b> or a tool of your choice.",
+            "type": "text_input",
+            "placeholder": "*******:**********",
+            "correct_answers": ["ftpuser:ftppass123", "ftpuser ftppass123"]
+        },
+        {
+            "quid": "a6928ca7",
+            "question": "The attacker subsequently used these credentials to authenticate to the <b>File Transfer Protocol (FTP)</b> server. What is the name of the private key file that the attacker exfiltrated from the server?",
+            "hint": "First, filter for <b>FTP</b> related traffic. From there, look through the <b>Info</b> column to trace the different FTP commands ran by the attacker. Specifically, the <code>RETR</code> command can be issued when a client wants to download a copy of a file from the server.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["id_rsa", ".ssh/id_rsa"]
+        },
+        {
+            "quid": "7fc8f485",
+            "question": "After gaining access to the system using the exfiltrated key file, the attacker downloaded a <b>second-stage</b> payload onto the file server over HTTP. What is the <b>name</b> of this file?",
+            "hint": "Filter for <b>HTTP</b> traffic again. This time, the <b>Source IP</b> should be the address of the file server. Additionally, because the file server is the client making the request this time, the <b>source port</b> is likely to be an ephemeral port.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["cron_cleanup.elf"]
+        },
+        {
+            "quid": "3a9cb459",
+            "question": "What is the <b>SHA-256</b> hash value of the file?",
+            "hint": "You can use the <b>File > Export Objects > HTTP...</b> feature within Wireshark to save a copy of any transferred files to disk. From there, a simple <code>sha256sum</code> against the file will identify its hash value.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["db18e91f4316e8b518271e29e38b0b213708938779b1b45e49dba715d31a61ef"]
+        },
+        {
+            "quid": "38bf900e",
+            "question": "Perform a lookup of the file's hash value on <b>VirusTotal</b>. Which <b>malware family</b> is it likely associated with?",
+            "hint": "Look for the <b>popular threat label</b> tag.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["miraidownloader", "mirai", "multiverze", "trojan.mirai", "trojan.mirai/miraidownloader"]
+        },
+        {
+            "quid": "cf7e3567",
+            "question": "What <b>protocol</b> did the attacker use to <b>beacon</b> back to their command and control server?",
+            "hint": "The <b>Statistics > Protocol Hierarchy</b> section can break down the top protocols by percentage and packet count.",
+            "type": "text_input",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["icmp", "Internet Control Message Protocol"]
+        }
+    ]
+  }
+
+
+  
