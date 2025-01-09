@@ -1,18 +1,120 @@
 {
     "uid": "SOC-2258",
-    "subject": "TBD",
-    "reporter": "TBD",
-    "instructions": "<p>TBD.</p><p>TBD.</p><h3>Challenge Location:</h3><p><ul><li><code>http://tbd.com</code></li></ul></p>",
+    "subject": "Corporate Web Server Compromise",
+    "reporter": "Development Team",
+    "instructions": "<p>The SOC has been notified of a potential compromise of the corporate web server. Initial alerts were triggered by unusual activity detected in Apache web server logs, which indicated possible reconnaissance and exploitation attempts.</p><p>Using the provided <b>Splunk</b> instance, use your investigation skills to uncover the malicious actions performed against the web server and answer the report questions below. You have been provided with the <code>challenge_web</code> index, which contains <b>Apache</b> logs, and the <code>challenge_sysmon</code> index, which contains detailed <b>endpoint</b> events.</p><h3>Challenge Location:</h3><p><ul><li><code>http://10.10.0.10:8000</code></li><li><b>Username:</b> <code>tcm</code><li><b>Password</b>:<code>password</code></li></li></ul></p>",
   
   
     "questions": [
         {
-            "quid": "aad31fbd",
-            "question": "How many total events were logged in the file?",
+            "quid": "c1967244",
+            "question": "Begin with a focus on the <code>challenge_web</code> index, which contain events from the web server. What are the two <b>top IP addresses</b> in the logs?",
             "type": "text_input",
-            "hint": "The <code>wc</code> command can be useful here.",
+            "hint": "First, start with a search for <code>index=challenge_web</code>. From there, return the top values for the <code>clientip</code> field.",
+            "placeholder": "**.*.*.**, **.*.*.*",
+            "correct_answers": ["10.0.2.10, 10.0.2.5", "10.0.2.5, 10.0.2.10", "10.0.2.5 10.0.2.10", "10.0.2.10 10.0.2.5"]  
+        },
+        {
+            "quid": "13943df8",
+            "question": "The team suspects that the attacker first scanned the website using various tools. What is the attacker's <b>IP address</b>?",
+            "type": "text_input",
+            "hint": "To help narrow down the IP of the attacker, look through the various <code>useragent</code> values in the logs.",
             "placeholder": "Enter your answer here",
-            "correct_answers": ["338", "338 events", "338 total events"]  
+            "correct_answers": ["10.0.2.5"]  
+        },
+        {
+            "quid": "f0a29f30",
+            "question": "What is the name of the <b>first</b> tool that the attacker used to scan the server's <b>network services</b>?",
+            "type": "text_input",
+            "hint": "Look through the various <code>useragent</code> values logged from the attacker's IP.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)", "Nmap Scripting Engine", "nmap", "network mapper"]  
+        },
+        {
+            "quid": "e3b40b53",
+            "question": "After discovering the web server, what is the name of the tool that the attacker used to enumerate the websites <b>files and directories</b>?",
+            "type": "text_input",
+            "hint": "Look through the various <code>useragent</code> values logged from the attacker's IP.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["gobuster/3.6", "gobuster"]  
+        },
+        {
+            "quid": "216839e8",
+            "question": "What website <b>directory</b> did the attacker's enumeration tool successfully discover?",
+            "type": "text_input",
+            "hint": "Check for successful or redirected responses (e.g., status codes 200 or 301) from the web server for the user agent identified in the previous question.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["solutions", "/solutions", "/solutions/"]  
+        },
+        {
+            "quid": "b57e8838",
+            "question": "Perform a search for that directory. What is the name of the <b>PHP file</b> that the attacker discovered?",
+            "type": "text_input",
+            "hint": "Search the data for the directory name (e.g., <code>\"/directory\"</code>) that you discovered in the previous question. You can then look at the <code>file</code> or <code>url_query</code> fields.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["network-check.php", "/solutions/network-check.php"]  
+        },
+        {
+            "quid": "ea0462d4",
+            "question": "The development team believes that the attacker may have abused a <b>vulnerable feature</b> of the tool hosted at this URL. Based on the <b>URL parameters</b> logged, what type of vulnerability did the attacker likely exploit?",
+            "hint": "Look for any common signatures or special characters that may indicate an attack attempt. You may have to URL decode them to get a full understanding.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["command injection", "command execution", "remote code execution", "rce"]  
+        },
+        {
+            "quid": "52c3b1e5",
+            "question": "What is the <b>name of the file</b> that the attacker downloaded onto the server and executed?",
+            "hint": "Look for any common signatures or special characters that may indicate an attack attempt. You may have to URL decode them to get a full understanding.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["apache-service.exe", "apache-service[.]exe"]  
+        },
+        {
+            "quid": "07c3e8da",
+            "question": "Use this filename as a pivot point to investigate the <code>challenge_sysmon</code> index, which contains endpoint events from this web server. Specifically, look for any <b>network connection</b> related events from the previously identified executable. What is the <b>destination IP address</b> and <b>port number</b> that the malware reaches out to?",
+            "hint": "Make sure you are searching through the entire <code>challenge_sysmon</code> index. Additionally, search for the previously identified filename, and for <code>EventCode=3</code>.",
+            "placeholder": "**.*.*.*:*****",
+            "correct_answers": ["10.0.2.5:31337", "10.0.2.5 31337"]  
+        },
+        {
+            "quid": "045ff9d9",
+            "question": "What is the <b>SHA-256</b> hash value of the malware?",
+            "hint": "Find the initial execution of the file (<code>Image=\"C:\\\\Windows\\\\Temp\\\\apache-service.exe\"</code>) and look at the <code>Hashes</code> field.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["85CE381D7F0169D8CC3EEBA8AFB5D50C5FC098BF71E7A90ADA52F25BF8B9AAAB"]  
+        },
+        {
+            "quid": "93210314",
+            "question": "Search for any <b>child processes</b> of the malware (<code>parent_process_id=8496</code>). What is the <b>Process ID (PID)</b> of the process that was directly spawned?",
+            "placeholder": "Enter your answer here",
+            "hint": "The <b>ProcessID</b> field with a value of <b>'3064'</b> can be ignored due to a data replication issue. Use the <b>ProcessId</b> field.",
+            "correct_answers": ["4848"]  
+        },
+        {
+            "quid": "8832bcad",
+            "question": "Use the <b>Process ID (PID)</b> identified in the previous question to search for all of its child processes and identify the commands that the attacker ran on the compromised system. <b>Construct a table</b> with the following fields: <code>_time, CommandLine, ProcessId</code>. What is the <b>username</b> and <b>password</b> of the backdoor account the attacker created?",
+            "hint": "The <code>net user</code> command is often used in the command-line to create and manage user accounts.",
+            "placeholder": "******-*******:*********",
+            "correct_answers": ["apache-service:b4cktr4ce", "apache-service b4cktr4ce"]  
+        },
+        {
+            "quid": "a8accabe",
+            "question": "What is the <b>name</b> of the <b>scheduled task</b> that the attacker created for persistence?",
+            "hint": "The <code>schtasks</code> command is often used in the command-line to create and manage scheduled tasks.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["CacheTask"]  
+        },
+        {
+            "quid": "91e90483",
+            "question": "In <b>defanged format</b>, what is the full <b>URL</b> that the attacker used to download <b>Mimikatz</b> for credential access?",
+            "hint": "The <code>certutil</code> command is often abused in the command-line to download and transfer files for post-exploitation.",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["hxxps[://]github[.]com/ParrotSec/mimikatz/raw/refs/heads/master/x64/mimikatz[.]exe", "https://github.com/ParrotSec/mimikatz/raw/refs/heads/master/x64/mimikatz.exe"]  
+        },
+        {
+            "quid": "d6f909b8",
+            "question": "What is the <b>Process ID (PID)</b> pertaining to the attacker's execution of the <b>Mimikatz</b> tool?",
+            "placeholder": "Enter your answer here",
+            "correct_answers": ["7432"]  
         }
     ]
   }

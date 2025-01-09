@@ -37,7 +37,7 @@ const challengedb = [
     },
     {
       id: "SOC-2258",
-      title: "Splunk",
+      title: "Corporate Web Server Compromise",
       category: "SIEM Investigation",
       data: require('./SOC-2258.json'),
     },
