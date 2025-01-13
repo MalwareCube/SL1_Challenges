@@ -45,7 +45,7 @@
         },
         {
             "quid": "85f6cd6b",
-            "question": "Run the <code>ps</code> command against the previously identified malicious Process ID (PID). What is the full command line invocation of this binary?",
+            "question": "Run the <code>ps</code> command against the previously identified malicious <b>Process ID (PID)</b>. What is the <b>full command-line invocation</b> of this binary?",
             "type": "text_input",
             "hint": "The <code>-F</code> argument can be used to view the output in full format.",
             "placeholder": "Enter your answer here",
@@ -53,7 +53,7 @@
         },
         {
             "quid": "2ed647da",
-            "question": "What is the SHA-256 hash value of the malware? <i>This answer cannot be verified due to potential version differences; however, it's a useful exercise.</i>",
+            "question": "What is the <b>SHA-256</b> hash value of the malware? <i>This answer cannot be verified due to potential version differences; however, it's a useful exercise.</i>",
             "type": "text_input",
             "hint": "You might have noticed that the malware was deleted immediately upon executing! However, you can still query binaries and executables held open by active processes through a specific <b>virtual filesystem</b>.",
             "placeholder": "Enter your answer here"
@@ -68,7 +68,7 @@
         },
         {
             "quid": "58cbf855",
-            "question": "Examine the <b>system-wide cron jobs</b> configured on the local system. Identify any entries that may be malicious, indicating persistence mechanisms or continued compromise by the attacker. What <b>IP address and port number</b> is the cronjob configured to conenct back to? <i>Answer format: IP:Port</i>.",
+            "question": "Examine the <b>system-wide cron jobs</b> configured on the local system. Identify any entries that may indicate persistence mechanisms or continued compromise by the attacker. What <b>IP address and port number</b> is the cronjob configured to connect back to? <i>Answer format: IP:Port</i>.",
             "type": "text_input",
             "placeholder": "Enter your answer here",
             "correct_answers": ["45.155.204.5:7183", "45.155.204.5 7183", "45.155.204.5/7183"]

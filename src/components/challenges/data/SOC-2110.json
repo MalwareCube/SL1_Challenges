@@ -8,7 +8,7 @@
     "questions": [
         {
             "quid": "fddb0b1c",
-            "question": "Simulate the compromise by running <code>challenge.exe</code> in an Administrator-level command prompt. Make sure to not close the program or window until after you've completed the challenge. However, you can temporarily minimize it. Enter \"<b>done</b>\" to continue.",
+            "question": "Simulate the compromise by running <code>challenge.exe</code> in an <b>Administrator-level</b> command prompt. Make sure to not close the program or window until after you've completed the challenge. However, you can temporarily minimize it. Enter \"<b>done</b>\" to continue.",
             "type": "text_input",
             "placeholder": "Enter \"done\" to continue",
             "correct_answers": ["done"]
