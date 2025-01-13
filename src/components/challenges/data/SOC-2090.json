@@ -79,7 +79,7 @@
       },
       {
         "quid": "b6bd1c80",
-          "question": "Perform a <b>Virus Total</b> lookup on the <b>URL</b> from the previous question. What verdict did <b>Fortinet</b> assign it?",
+          "question": "Perform a <b>VirusTotal</b> lookup on the <b>URL</b> from the previous question. What verdict did <b>Fortinet</b> assign it?",
           "type": "text_input",
           "placeholder": "Enter your answer here",
           "correct_answers": ["Malware", "Malicious"]  
@@ -112,7 +112,7 @@
 
     {
         "quid": "75477b08",
-        "question": "Submit the hash value to VirusTotal. What is the <b>Popular threat label</b> returned for this sample?",
+        "question": "Submit the hash value to <b>VirusTotal</b>. What is the <b>Popular threat label</b> returned for this sample?",
         "type": "text_input",
         "placeholder": "Enter your answer here",
         "correct_answers": ["downloader.autdwnlrner/w97m"]  

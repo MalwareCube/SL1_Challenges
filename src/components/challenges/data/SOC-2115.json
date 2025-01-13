@@ -40,9 +40,9 @@
         },
         {
             "quid": "d0969f42",
-            "question": "What is the <b>popular threat label</b>?",
+            "question": "Submit the previously identified hash to <b>VirusTotal</b>. What is the <b>popular threat label</b> of the executable?",
             "type": "text_input",
-            "hint": "Look for a similar event to the one you identified in the previous question. This time, look for the creation of a <b>Zone.Identifier</b> data stream, which stores metadata about the file's origin.",
+            "hint": "Within the Sysmon events, you can check <b>Event Code 15</b>, which is logged when a named file stream is created. Make sure you identify the <i>primary</i> file stream (containing the main content of the file) rather than an Alternate Data Stream (ADS).",
             "placeholder": "Enter your answer here",
             "correct_answers": ["trojan.metasploit/rozena", "rozena", "metasploit", "trojan.metasploit.a"]
         },
