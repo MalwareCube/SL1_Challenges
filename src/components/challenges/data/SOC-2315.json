@@ -72,7 +72,7 @@
         },
         {
             "quid": "4bf45b7f",
-            "question": "After staging sensitive data, files, and intellectual property, the attacker <b>exfiltrated</b> the data by pushing it to a public <b>GitHub repository</b>. What <b>mitigation</b> ID could the organization have implemented to prevent the use of unauthorized external services?",
+            "question": "After staging sensitive data, files, and intellectual property, the attacker <b>exfiltrated</b> the data by pushing it to a public <b>GitHub repository</b>. What <b>mitigation ID</b> could the organization have implemented to prevent the use of unauthorized external services?",
             "type": "text_input",
             "hint": "GitHub is a <b>code repository</b>.",
             "placeholder": "Enter your answer here",

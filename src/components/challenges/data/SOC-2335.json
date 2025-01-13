@@ -8,7 +8,7 @@
     "questions": [
         {
             "quid": "de1242f9",
-            "question": "First, run the <code>strings</code> command against <code>HawkEye.exe.meow</code>. What is the <b>name</b> of the JPG file that is referenced in the binary?",
+            "question": "First, run the <code>strings</code> command against <code>Samples/HawkEye.exe.meow</code>. What is the <b>name</b> of the JPG file that is referenced in the binary?",
             "type": "text_input",
             "placeholder": "Enter your answer here",
             "correct_answers": ["tmp1E2A.jpg"]

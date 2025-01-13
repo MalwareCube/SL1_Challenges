@@ -2,7 +2,7 @@
     "uid": "SOC-2405",
     "subject": "Volatile Evidence Request",
     "reporter": "Ben Alderson",
-    "instructions": "<p>A System Administrator recently dusted off a memory capture from a Windows workstation that was suspected to have been compromised. Unfortunately, nobody at the company can remember the details of the incident, and they now require someone to investigate the capture for signs of suspicious activity.</p><p>Your task is to test out your memory analysis skills by examining the <code>challenge.vmem</code> file and analyze it for anything out of place or indicative of malware.</p><h3>Challenge File:</h3><p><ul><li><code>~/Desktop/SOC_Level_1/Digital_Forensics/Challenge/challenge.vmem</code></li></ul></p>",
+    "instructions": "<p>A System Administrator recently dusted off a memory capture from a Windows workstation that was suspected to have been compromised. Unfortunately, nobody at the company can remember the details of the incident, and they now require someone to investigate the capture for signs of suspicious activity.</p><p>Your task is to test out your memory analysis skills by examining the <code>challenge.vmem</code> file and analyze it for anything out of place or indicative of malware.</p><h3>Challenge File:</h3><p><ul><li><code>~/Desktop/SOC_Level_1/Digital_Forensics/Volatility/Challenge/challenge.vmem</code></li></ul></p>",
   
   
     "questions": [
@@ -24,15 +24,15 @@
         },
         {
             "quid": "525ce2b8",
-            "question": "What is the name of the process(es) that appears malicious or out of place?",
+            "question": "What is the <b>name</b> of the <b>process(es)</b> that appears malicious or out of place?",
             "type": "text_input",
             "hint": "The <code>windows.pslist</code> or <code>windows.psscan</code> plugins can enumerate processes in the memory capture.",
             "placeholder": "Enter your answer here",
-            "correct_answers": ["crss.exe", "crss"]  
+            "correct_answers": ["crss.exe", "crss", "crss.exe, crss.exe", "crss.exe crss.exe", "crss, crss", "crss crss"]  
         },
         {
             "quid": "78b49113",
-            "question": "Which legitimate Windows process is it attempting to obfuscate as?",
+            "question": "Which <b>legitimate</b> Windows process is it attempting to obfuscate as?",
             "type": "text_input",
             "hint": "Think back to the <b>Windows Core Processes</b> lessons.",
             "placeholder": "Enter your answer here",
